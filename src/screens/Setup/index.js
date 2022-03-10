@@ -1,8 +1,11 @@
 import {View, Text, ScrollView, TouchableWithoutFeedback} from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import {setupStyle} from './style';
+import {Authentication} from '../../UserAuth';
 
 export default function Setup({navigation}) {
+  const {user} = useContext(Authentication);
+
   return (
     <View style={setupStyle.container}>
       <TouchableWithoutFeedback onPress={() => navigation.navigate('login')}>
@@ -17,13 +20,11 @@ export default function Setup({navigation}) {
         <ScrollView style={setupStyle.scrollContainer}>
           <View style={setupStyle.scrollItem}>
             <View style={setupStyle.thumbnailBox}>
-              <Text style={setupStyle.thumbnail}>S</Text>
+              <Text style={setupStyle.thumbnail}>{user?.userName[0]}</Text>
             </View>
             <View style={setupStyle.cardBox}>
-              <Text style={setupStyle.cardBox__title}>Sprout Digital</Text>
-              <Text style={setupStyle.cardBox__text}>
-                info@sproutdigital.xyz
-              </Text>
+              <Text style={setupStyle.cardBox__title}>{user?.userName}</Text>
+              <Text style={setupStyle.cardBox__text}>{user?.email}</Text>
             </View>
           </View>
         </ScrollView>

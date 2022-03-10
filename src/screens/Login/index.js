@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import React from 'react';
 import Logo from '../../components/Logo';
 import padlock from '../../assets/images/padlock.png';
 import {loginStyle} from './style';
+import {Authentication} from '../../UserAuth';
 
 export default function Login({navigation}) {
   const [userName, setUserName] = useState('');
@@ -21,6 +22,8 @@ export default function Login({navigation}) {
     left: 15,
     top: 15,
   });
+
+  const {setUser} = useContext(Authentication);
 
   let padlockUri = Image.resolveAssetSource(padlock).uri;
 
@@ -39,6 +42,12 @@ export default function Login({navigation}) {
       setEmailErr('Invalid Email!');
       return;
     }
+
+    setUser({
+      userName,
+      email,
+    });
+
     navigation.navigate('setup');
   };
 
